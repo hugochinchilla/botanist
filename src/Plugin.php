@@ -5,18 +5,17 @@ use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
-use Symfony\Component\Filesystem\Filesystem;
 
 class Plugin implements PluginInterface, EventSubscriberInterface
 {
-    private IOInterface $io;
-    private Composer $composer;
+    private ActionLogger $actionLogger;
+    private string $vendorPath;
     private int $runCount = 0;
 
     public function activate(Composer $composer, IOInterface $io)
     {
-        $this->composer = $composer;
-        $this->io = $io;
+        $this->vendorPath = $composer->getConfig()->get("vendor-dir");
+        $this->actionLogger = new ActionLogger($io);
     }
 
     public function deactivate(Composer $composer, IOInterface $io)
@@ -51,8 +50,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
             return;
         }
 
-        $vendorPath = $this->composer->getConfig()->get("vendor-dir");
-        $this->setPathOwnershipFromParentPath($vendorPath);
+        $this->setPathOwnershipFromParentPath($this->vendorPath);
         $this->setPathOwnershipFromParentPath('composer.lock');
     }
 
@@ -62,37 +60,21 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         $uid = fileowner($parentPath);
         $gid = filegroup($parentPath);
 
-        if (!$this->fileNeedsFixing($path, $uid, $gid)) {
-            return;
-        }
+        $fixer = $this->createFixer($uid, $gid);
 
-        $fileSystem = new Filesystem();
-        $fileSystem->chown($path, $uid, true);
-        $fileSystem->chgrp($path, $gid, true);
-        $this->logActionTaken($path, $uid, $gid);
-    }
-
-    private function fileNeedsFixing($path, $uid, $gid)
-    {
-        if (is_dir($path)) {
-            return true;
-        }
-
-        return $uid !== fileowner($path) && $gid !== filegroup($path);
-    }
-
-    private function log(string $msg)
-    {
-        $this->io->write("[stumpgrinder] <fg=green>{$msg}</>");
-    }
-
-    private function logActionTaken($path, $uid, $gid): void
-    {
-        if (is_dir($path)) {
-            $relativePath = mb_substr($path, mb_strlen(getcwd()) + 1);
+        if (is_file($path)) {
+            $fixer->fixFile($path);
         } else {
-            $relativePath = $path;
+            $fixer->fixDirectoryRecursive($path);
         }
-        $this->log("set {$relativePath} ownership to {$uid}:{$gid}");
+    }
+
+    private function createFixer(bool $uid, bool $gid): FixerInterface
+    {
+        if (CoreUtilsFixer::isSupported()) {
+            return new CoreUtilsFixer($uid, $gid, $this->actionLogger);
+        }
+
+        return new PhpFixer($uid, $gid, $this->actionLogger);
     }
 }
