@@ -4,6 +4,9 @@ declare(strict_types = 1);
 
 namespace hugochinchilla\stumpgrinder;
 
+use Composer\IO\NullIO;
+use Composer\Util\ProcessExecutor;
+
 class CoreUtilsFixer implements FixerInterface
 {
     protected int $uid;
@@ -16,11 +19,14 @@ class CoreUtilsFixer implements FixerInterface
 
     public function fixPathRecursive($path)
     {
-        exec("chown -R {$this->uid}:{$this->gid} {$path}");
+        $executor = new ProcessExecutor();
+        $executor->execute("chown -R {$this->uid}:{$this->gid} {$path}");
     }
 
     public static function isSupported(): bool
     {
-        return exec('which chown') !== false;
+        $executor = new ProcessExecutor(new NullIO());
+        $status = $executor->execute('which chown');
+        return $status === 0;
     }
 }
