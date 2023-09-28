@@ -1,7 +1,7 @@
 {
     "name": "hugochinchilla/stumpgrinder",
     "description": "Remove all the roots from your vendor dir",
-    "type": "library",
+    "type": "composer-plugin",
     "autoload": {
         "psr-4": {
             "hugochinchilla\\stumpgrinder\\": "src/"
