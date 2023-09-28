@@ -1,0 +1,29 @@
+{
+    "name": "hugochinchilla/stumpgrinder",
+    "description": "Remove all the roots from your vendor dir",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "hugochinchilla\\stumpgrinder\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Hugo Chinchilla",
+            "email": "hugoasecas@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+      "php": ">=7.4",
+      "ext-posix": "*",
+      "composer-plugin-api": "^2.0",
+      "symfony/filesystem": "^6.3"
+    },
+    "require-dev": {
+      "composer/composer": "^2.0"
+    },
+    "extra": {
+      "class": "hugochinchilla\\stumpgrinder\\Plugin"
+    }
+}
