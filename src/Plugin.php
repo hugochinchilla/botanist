@@ -35,15 +35,15 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         );
     }
 
-    public function fixOwnershipOnce($path)
+    public function fixOwnershipOnce()
     {
         if ($this->runCount === 0) {
-            $this->fixOwnership($path);
+            $this->fixOwnership();
             $this->runCount++;
         }
     }
 
-    private function fixOwnership($path)
+    private function fixOwnership()
     {
         $isRoot = posix_getuid() === 0;
         if (!$isRoot) {
