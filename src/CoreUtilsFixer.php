@@ -4,22 +4,19 @@ declare(strict_types = 1);
 
 namespace hugochinchilla\stumpgrinder;
 
-class CoreUtilsFixer extends FixerBase implements FixerInterface
+class CoreUtilsFixer implements FixerInterface
 {
-    public function fixFile($path)
-    {
-        if ($this->uid === fileowner($path) && $this->gid === filegroup($path)) {
-            return;
-        }
+    protected int $uid;
+    protected int $gid;
 
-        exec("chown {$this->uid}:{$this->gid} {$path}");
-        $this->actionLogger->write("changed owner of {$path}");
+    public function setOwner(int $uid, int $gid) {
+        $this->uid = $uid;
+        $this->gid = $gid;
     }
 
-    public function fixDirectoryRecursive($path)
+    public function fixPathRecursive($path)
     {
         exec("chown -R {$this->uid}:{$this->gid} {$path}");
-        $this->actionLogger->write("changed owner of {$path}");
     }
 
     public static function isSupported(): bool

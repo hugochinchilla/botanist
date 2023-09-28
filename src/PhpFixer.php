@@ -6,26 +6,21 @@ namespace hugochinchilla\stumpgrinder;
 
 use Symfony\Component\Filesystem\Filesystem;
 
-class PhpFixer extends FixerBase implements FixerInterface
+class PhpFixer implements FixerInterface
 {
-    public function fixFile($path)
-    {
-        if ($this->uid === fileowner($path) && $this->gid === filegroup($path)) {
-            return;
-        }
+    protected int $uid;
+    protected int $gid;
 
-        $fileSystem = new Filesystem();
-        $fileSystem->chown($path, $this->uid);
-        $fileSystem->chgrp($path, $this->gid);
-        $this->actionLogger->write("changed owner of {$path}");
+    public function setOwner(int $uid, int $gid) {
+        $this->uid = $uid;
+        $this->gid = $gid;
     }
 
-    public function fixDirectoryRecursive($path)
+    public function fixPathRecursive($path)
     {
         $fileSystem = new Filesystem();
         $fileSystem->chown($path, $this->uid, true);
         $fileSystem->chgrp($path, $this->gid, true);
-        $this->actionLogger->write("changed owner of {$path}");
     }
 
     public static function isSupported(): bool

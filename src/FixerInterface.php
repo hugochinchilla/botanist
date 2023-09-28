@@ -7,9 +7,9 @@ namespace hugochinchilla\stumpgrinder;
 
 interface FixerInterface
 {
-    public function fixFile($path);
+    public function setOwner(int $uid, int $gui);
 
-    public function fixDirectoryRecursive($path);
+    public function fixPathRecursive(string $path);
 
     public static function isSupported(): bool;
 }

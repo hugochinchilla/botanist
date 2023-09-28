@@ -8,14 +8,14 @@ use Composer\Plugin\PluginInterface;
 
 class Plugin implements PluginInterface, EventSubscriberInterface
 {
-    private ActionLogger $actionLogger;
+    private IOInterface $io;
     private string $vendorPath;
     private int $runCount = 0;
 
     public function activate(Composer $composer, IOInterface $io)
     {
         $this->vendorPath = $composer->getConfig()->get("vendor-dir");
-        $this->actionLogger = new ActionLogger($io);
+        $this->io = $io;
     }
 
     public function deactivate(Composer $composer, IOInterface $io)
@@ -50,31 +50,29 @@ class Plugin implements PluginInterface, EventSubscriberInterface
             return;
         }
 
-        $this->setPathOwnershipFromParentPath($this->vendorPath);
-        $this->setPathOwnershipFromParentPath('composer.lock');
+        $fixer = $this->createFixer();
+        $this->setOwnerFromParentPath($fixer, $this->vendorPath);
+        $this->setOwnerFromParentPath($fixer, 'composer.lock');
     }
 
-    private function setPathOwnershipFromParentPath($path)
+    private function setOwnerFromParentPath(FixerInterface $fixer, string $path)
     {
-        $parentPath = dirname(realpath($path));
-        $uid = fileowner($parentPath);
-        $gid = filegroup($parentPath);
-
-        $fixer = $this->createFixer($uid, $gid);
-
-        if (is_file($path)) {
-            $fixer->fixFile($path);
-        } else {
-            $fixer->fixDirectoryRecursive($path);
+        $ownership = new Ownership($path);
+        if (!$ownership->needsUpdate()) {
+            return;
         }
+        $fixer->setOwner($ownership->newUid, $ownership->newGid);
+        $fixer->fixPathRecursive($path);
+        $this->io->write("[stumpgrinder] <fg=green>changed owner of {$path}</>");
     }
 
-    private function createFixer(bool $uid, bool $gid): FixerInterface
+    private function createFixer(): FixerInterface
     {
         if (CoreUtilsFixer::isSupported()) {
-            return new CoreUtilsFixer($uid, $gid, $this->actionLogger);
+            return new CoreUtilsFixer();
         }
 
-        return new PhpFixer($uid, $gid, $this->actionLogger);
+        $this->io->write("[stumpgrinder] <fg=yellow>coreutils not available, falling back to php, this may be slower</>");
+        return new PhpFixer();
     }
 }
