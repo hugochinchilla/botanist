@@ -6,7 +6,11 @@
 
 Add this plugin to your `composer.json` to prevent composer from creating files owned by root while running on docker.
 
-Run `composer require hugochinchilla/botanist` and you will never have to fix a composer permission error again.
+Install this plugin and you will never have to fix a composer permission error again.
+
+```bash
+composer require hugochinchilla/botanist
+```
 
 ## How does it work?
 
