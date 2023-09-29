@@ -9,9 +9,9 @@ use Composer\Plugin\PluginInterface;
 
 class Plugin implements PluginInterface, EventSubscriberInterface
 {
-    private IOInterface $io;
-    private string $vendorPath;
-    private int $runCount = 0;
+    private $io;
+    private $vendorPath;
+    private $runCount = 0;
 
     public function activate(Composer $composer, IOInterface $io)
     {

@@ -6,11 +6,11 @@ namespace hugochinchilla\botanist;
 
 class Ownership
 {
-    private string $path;
-    public int $uid;
-    public int $gid;
-    public int $newUid;
-    public int $newGid;
+    private $path;
+    public $uid;
+    public $gid;
+    public $newUid;
+    public $newGid;
 
     public function __construct(string $path)
     {
