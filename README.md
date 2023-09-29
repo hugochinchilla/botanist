@@ -1,6 +1,8 @@
 # stumpgrinder
 
-![img/ls-example.png](img/ls-example.png)
+![pipeline status](https://github.com/hugochinchilla/stumpgrinder/actions/workflows/run-phpunit/badge.svg)
+
+![banner](img/ls-example.png)
 
 Add this plugin to your `composer.json` to prevent composer from creating files owned by root while running on docker.
 

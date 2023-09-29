@@ -6,6 +6,11 @@ class ComposerInstallTest extends \PHPUnit\Framework\TestCase
 {
     const PROJECT_PATH = __DIR__ . '/resources/example_project';
 
+    public static function setUpBeforeClass(): void
+    {
+        self::runCommand('rm -rf vendor composer.lock');
+    }
+
     public function test_testsuite_is_not_run_as_root(): void
     {
         $current_user = posix_getuid();
@@ -34,8 +39,7 @@ class ComposerInstallTest extends \PHPUnit\Framework\TestCase
 
     public static function tearDownAfterClass(): void
     {
-        self::runCommand('git checkout composer.json composer.lock');
-        self::runCommand('rm -rf vendor');
+        self::runCommand('git checkout composer.json');
     }
 
     private static function runCommand(string $command): void

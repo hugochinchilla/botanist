@@ -13,12 +13,12 @@
         }
     ],
     "require": {
-        "symfony/symfony": "^6.3"
+        "psr/log": "^1|^2|^3"
     },
     "repositories": [
         {
             "type": "path",
-            "url": "../../../"
+            "url": "/repo"
         }
     ],
     "config": {

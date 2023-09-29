@@ -4,6 +4,7 @@ services:
     working_dir: /srv
     volumes:
      - .:/srv
+     - ../../../:/repo
     entrypoint: ["composer"]
    
 
