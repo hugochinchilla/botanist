@@ -8,15 +8,15 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class PhpFixer implements FixerInterface
 {
-    protected int $uid;
-    protected int $gid;
+    protected $uid;
+    protected $gid;
 
     public function setOwner(int $uid, int $gid) {
         $this->uid = $uid;
         $this->gid = $gid;
     }
 
-    public function fixPathRecursive($path)
+    public function fixPathRecursive(string $path)
     {
         $fileSystem = new Filesystem();
         $fileSystem->chown($path, $this->uid, true);
