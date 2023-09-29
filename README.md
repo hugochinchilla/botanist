@@ -1,6 +1,6 @@
 # stumpgrinder
 
-![pipeline status](https://github.com/hugochinchilla/stumpgrinder/actions/workflows/run-phpunit/badge.svg)
+[![Run test suite](https://github.com/hugochinchilla/stumpgrinder/actions/workflows/run-phpunit.yml/badge.svg)](https://github.com/hugochinchilla/stumpgrinder/actions/workflows/run-phpunit.yml)
 
 ![banner](img/ls-example.png)
 
