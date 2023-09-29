@@ -1,34 +1,34 @@
 {
-    "name": "hugochinchilla/stumpgrinder",
-    "description": "Remove all the roots from your vendor dir",
-    "type": "composer-plugin",
-    "license": "GPL-3.0-only",
-    "autoload": {
-        "psr-4": {
-            "hugochinchilla\\stumpgrinder\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Hugo Chinchilla",
-            "email": "hugoasecas@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {
-      "php": ">=7.4",
-      "ext-posix": "*",
-      "composer-plugin-api": "^2.0",
-      "symfony/filesystem": "^6.3"
-    },
-    "require-dev": {
-      "composer/composer": "^2.0",
-        "phpunit/phpunit": "^10.4@dev"
-    },
-    "extra": {
-      "class": "hugochinchilla\\stumpgrinder\\Plugin"
-    },
-    "scripts": {
-      "test": "php vendor/bin/phpunit"
+  "name": "hugochinchilla/stumpgrinder",
+  "description": "Remove all the roots from your vendor dir",
+  "type": "composer-plugin",
+  "license": "GPL-3.0-only",
+  "autoload": {
+    "psr-4": {
+      "hugochinchilla\\stumpgrinder\\": "src/"
     }
+  },
+  "authors": [
+    {
+      "name": "Hugo Chinchilla",
+      "email": "hugoasecas@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=7.0",
+    "ext-posix": "*",
+    "composer-plugin-api": "^2.0",
+    "symfony/filesystem": ">=2.1"
+  },
+  "require-dev": {
+    "composer/composer": "^2.0",
+    "phpunit/phpunit": "^10.4@dev"
+  },
+  "extra": {
+    "class": "hugochinchilla\\stumpgrinder\\Plugin"
+  },
+  "scripts": {
+    "test": "php vendor/bin/phpunit"
+  }
 }
