@@ -1,0 +1,9 @@
+services:
+  composer:
+    image: "composer:2.6.3"
+    working_dir: /srv
+    volumes:
+     - .:/srv
+    entrypoint: ["composer"]
+   
+

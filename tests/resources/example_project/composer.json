@@ -1,0 +1,29 @@
+{
+    "name": "hchinchilla/example_project",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Hchinchilla\\ExampleProject\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Hugo Chinchilla",
+            "email": "hugoasecas@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/symfony": "^6.3"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../../../"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "hugochinchilla/stumpgrinder": true
+        }
+    }
+}
