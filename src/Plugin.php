@@ -1,5 +1,6 @@
 <?php
-namespace hugochinchilla\stumpgrinder;
+
+namespace hugochinchilla\botanist;
 
 use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
@@ -63,7 +64,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         }
         $fixer->setOwner($ownership->newUid, $ownership->newGid);
         $fixer->fixPathRecursive($path);
-        $this->io->write("[stumpgrinder] <fg=green>changed owner of {$path}</>");
+        $this->io->write("[botanist] <fg=green>changed owner of {$path}</>");
     }
 
     private function createFixer(): FixerInterface
@@ -72,7 +73,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
             return new CoreUtilsFixer();
         }
 
-        $this->io->write("[stumpgrinder] <fg=yellow>coreutils not available, falling back to php, this may be slower</>");
+        $this->io->write("[botanist] <fg=yellow>coreutils not available, falling back to php, this may be slower</>");
         return new PhpFixer();
     }
 }

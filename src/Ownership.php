@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace hugochinchilla\stumpgrinder;
+namespace hugochinchilla\botanist;
 
 class Ownership
 {

@@ -1,12 +1,12 @@
-# stumpgrinder
+# Botanist 🪴
 
-[![Run test suite](https://github.com/hugochinchilla/stumpgrinder/actions/workflows/run-phpunit.yml/badge.svg)](https://github.com/hugochinchilla/stumpgrinder/actions/workflows/run-phpunit.yml)
+[![Run test suite](https://github.com/hugochinchilla/botanist/actions/workflows/run-phpunit.yml/badge.svg)](https://github.com/hugochinchilla/botanist/actions/workflows/run-phpunit.yml)
 
 ![banner](img/ls-example.png)
 
 Add this plugin to your `composer.json` to prevent composer from creating files owned by root while running on docker.
 
-Run `composer require hugochinchilla/stumpgrinder` and you will never have to fix a composer permission error again.
+Run `composer require hugochinchilla/botanist` and you will never have to fix a composer permission error again.
 
 ## How does it work?
 

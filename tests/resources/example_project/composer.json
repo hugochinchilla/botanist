@@ -23,7 +23,7 @@
   ],
   "config": {
     "allow-plugins": {
-      "hugochinchilla/stumpgrinder": true
+      "hugochinchilla/botanist": true
     }
   }
 }

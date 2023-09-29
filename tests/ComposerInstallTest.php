@@ -33,7 +33,7 @@ class ComposerInstallTest extends \PHPUnit\Framework\TestCase
         $expected_user = fileowner(self::PROJECT_PATH);
         $expected_group = filegroup(self::PROJECT_PATH);
 
-        self::runCommand('docker compose run composer require hugochinchilla/stumpgrinder @dev');
+        self::runCommand('docker compose run composer require hugochinchilla/botanist @dev');
 
         $this->assertEquals(self::getOwner('vendor'), "{$expected_user}:{$expected_group}");
     }

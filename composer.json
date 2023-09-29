@@ -1,11 +1,11 @@
 {
-  "name": "hugochinchilla/stumpgrinder",
-  "description": "Remove all the roots from your vendor dir",
+  "name": "hugochinchilla/botanist",
+  "description": "Removes all the roots from your project dir",
   "type": "composer-plugin",
   "license": "GPL-3.0-only",
   "autoload": {
     "psr-4": {
-      "hugochinchilla\\stumpgrinder\\": "src/"
+      "hugochinchilla\\botanist\\": "src/"
     }
   },
   "authors": [
@@ -26,7 +26,7 @@
     "phpunit/phpunit": "^10.4@dev"
   },
   "extra": {
-    "class": "hugochinchilla\\stumpgrinder\\Plugin"
+    "class": "hugochinchilla\\botanist\\Plugin"
   },
   "scripts": {
     "test": "php vendor/bin/phpunit"
