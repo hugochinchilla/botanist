@@ -30,11 +30,12 @@ class ComposerInstallTest extends \PHPUnit\Framework\TestCase
      */
     public function test_install_plugins_removes_root_dirs(): void
     {
-        $current_user = posix_getuid();
+        $expected_user = fileowner(self::PROJECT_PATH);
+        $expected_group = filegroup(self::PROJECT_PATH);
 
         self::runCommand('docker compose run composer require hugochinchilla/stumpgrinder @dev');
 
-        $this->assertEquals(self::getOwner('vendor'), "{$current_user}:{$current_user}");
+        $this->assertEquals(self::getOwner('vendor'), "{$expected_user}:{$expected_group}");
     }
 
     public static function tearDownAfterClass(): void
