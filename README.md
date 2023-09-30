@@ -12,8 +12,8 @@ composer require hugochinchilla/botanist
 
 ## Why this project?
 
-A pet peeve of mine is being able to execute any development environment just by running `docker compose up` after cloning
-it. No need to set up anything, no need to read the readme file, for me that is devex bliss.
+Something I like a lot is being able to run any development environment just by running `docker compose up` after cloning
+it, without having to set up anything, no need to read the readme file, for me that is devex bliss.
 
 A typical problem setting docker to run with a user different that root is needing to customize your user id in a dotenv
 file before being able to start the project, and that makes me unhappy.
